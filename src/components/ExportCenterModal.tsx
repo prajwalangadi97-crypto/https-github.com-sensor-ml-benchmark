@@ -155,6 +155,32 @@ export const ExportCenterModal: React.FC<ExportCenterModalProps> = ({
             </button>
           </div>
 
+          {/* Download Official Unstop ZIP Card */}
+          <div className="p-4 rounded-xl bg-gradient-to-r from-rose-950/40 via-purple-950/30 to-slate-950 border border-rose-500/40 flex items-center justify-between hover:border-rose-400 transition-all">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center">
+                <Download className="w-5 h-5 text-rose-400" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="font-bold text-white text-sm">Dataforge.zip</h3>
+                  <span className="px-1.5 py-0.5 rounded text-[10px] bg-rose-500/20 text-rose-300 font-bold border border-rose-500/40">OFFICIAL UNSTOP SUBMISSION</span>
+                </div>
+                <p className="text-[11px] text-slate-400 font-sans">
+                  Complete Unstop Hackathon ZIP package containing predictions.csv, methodology statement, executive dossier, audit report, and standalone workbench.
+                </p>
+              </div>
+            </div>
+            <a
+              id="btn-download-dataforge-zip"
+              href="/Dataforge.zip"
+              download="Dataforge.zip"
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 text-white font-bold hover:brightness-110 shadow-lg shadow-rose-950/50 transition-all shrink-0 text-center"
+            >
+              DOWNLOAD ZIP
+            </a>
+          </div>
+
           {/* Custom Ingestion Card */}
           <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between hover:border-amber-500/40 transition-all">
             <div className="flex items-center gap-3">

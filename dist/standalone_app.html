@@ -1223,12 +1223,23 @@
           <button class="btn-action btn-whatif" onclick="downloadCSV()">DOWNLOAD CSV</button>
         </div>
 
-        <div class="kpi-box" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="kpi-box" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
           <div>
             <h4 style="color: #34d399; font-weight: 800;">summary_deliverables.json</h4>
             <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.2rem;">Structured JSON containing all 7 mandated challenge deliverables & benchmark metrics.</p>
           </div>
           <button class="btn-action btn-dossier" onclick="downloadJSON()">DOWNLOAD JSON</button>
+        </div>
+
+        <div class="kpi-box" style="display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #f43f5e; background: rgba(244, 63, 94, 0.08);">
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <h4 style="color: #fda4af; font-weight: 800;">Dataforge.zip</h4>
+              <span style="font-size: 0.65rem; background: rgba(244, 63, 94, 0.2); color: #fda4af; padding: 0.1rem 0.4rem; border-radius: 0.25rem; font-weight: bold;">OFFICIAL UNSTOP SUBMISSION</span>
+            </div>
+            <p style="font-size: 0.75rem; color: #cbd5e1; margin-top: 0.2rem;">Complete Unstop submission archive with predictions.csv, methodology statement, executive dossier & audit reports.</p>
+          </div>
+          <a href="Dataforge.zip" download="Dataforge.zip" class="btn-action" style="background: linear-gradient(135deg, #f43f5e, #f59e0b); color: #fff; text-decoration: none; font-weight: bold;">DOWNLOAD ZIP</a>
         </div>
       </div>
       <div class="modal-footer">
