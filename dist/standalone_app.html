@@ -1034,6 +1034,30 @@
       </div>
     </div>
 
+    <!-- 6. 3D DIGITAL TWIN TAB -->
+    <div id="tab-digital-twin" style="display: none;">
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem;">
+          <div>
+            <h2 style="font-size: 1.15rem; font-weight: 800; font-family: var(--font-mono); color: #fff;">
+              ⚙️ Interactive 3D Spatial Digital Twin Rig
+            </h2>
+            <p style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">
+              Synchronous 3D driveshaft rotation, electromagnetic stator coil heat glow & flux dynamics
+            </p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <span style="font-size: 0.75rem; font-family: var(--font-mono); color: #38bdf8;">RPM: <strong id="twin-rpm-val">2450</strong></span>
+            <input type="range" min="500" max="4000" value="2450" style="width: 140px;" oninput="updateTwinRpm(this.value)" />
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; background: #040813; border-radius: 0.5rem; border: 1px solid var(--border-color); overflow: hidden;">
+          <canvas id="twinCanvas" width="900" height="420" style="width: 100%; max-width: 900px; height: 420px;"></canvas>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <!-- MODALS -->

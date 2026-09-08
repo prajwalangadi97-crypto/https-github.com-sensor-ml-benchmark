@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { TelemetryRecord, ThemeMode } from './types';
 import { generateTestRecords } from './data/telemetryData';
-import { Header } from './components/Header';
+import { Sidebar } from './components/Sidebar';
+import { Topbar } from './components/Topbar';
 import { ExecutiveSummaryTab } from './components/ExecutiveSummaryTab';
 import { LiveTelemetryStream } from './components/LiveTelemetryStream';
 import { AnomalyRadarScanner } from './components/AnomalyRadarScanner';
@@ -28,6 +29,7 @@ export function App() {
   const [activeTab, setActiveTab] = useState<string>('executive');
   const [currentTheme, setCurrentTheme] = useState<ThemeMode>('industrial-dark');
   const [apiOnline, setApiOnline] = useState<boolean>(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
   // Modals state
   const [isWhatIfOpen, setIsWhatIfOpen] = useState(false);
@@ -70,9 +72,9 @@ export function App() {
   const anomaliesCount = records.filter(r => r.is_anomalous).length;
 
   return (
-    <div className={`min-h-screen bg-slate-950 text-slate-100 font-sans theme-${currentTheme} selection:bg-cyan-500/30 selection:text-cyan-200 transition-colors`}>
-      {/* Header Bar */}
-      <Header
+    <div className={`min-h-screen bg-slate-950 text-slate-100 font-sans theme-${currentTheme} selection:bg-cyan-500/30 selection:text-cyan-200 transition-colors flex`}>
+      {/* 1. Left Navigation Sidebar */}
+      <Sidebar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         currentTheme={currentTheme}
@@ -88,78 +90,96 @@ export function App() {
         isAudioPlaying={isAudioPlaying}
         anomaliesCount={anomaliesCount}
         apiOnline={apiOnline}
+        isOpenMobile={isMobileMenuOpen}
+        onCloseMobile={() => setIsMobileMenuOpen(false)}
       />
 
-      {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-16">
-        {activeTab === 'executive' && (
-          <ExecutiveSummaryTab
-            records={records}
-            onSelectRecord={(r) => setSelectedRecord(r)}
-            onGoToDiagnostics={() => setActiveTab('diagnostics')}
-          />
-        )}
+      {/* 2. Main Right Dashboard Canvas Area */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Topbar */}
+        <Topbar
+          activeTab={activeTab}
+          onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
+          onOpenAiCopilot={() => {
+            setAiTargetRecord(null);
+            setIsAiCopilotOpen(true);
+          }}
+          onOpenWhatIf={() => setIsWhatIfOpen(true)}
+          onOpenDossier={() => setIsDossierOpen(true)}
+          onOpenExport={() => setIsExportOpen(true)}
+        />
 
-        {activeTab === 'oscilloscope' && <LiveTelemetryStream />}
+        {/* Content Tabs */}
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-16">
+          {activeTab === 'executive' && (
+            <ExecutiveSummaryTab
+              records={records}
+              onSelectRecord={(r) => setSelectedRecord(r)}
+              onGoToDiagnostics={() => setActiveTab('diagnostics')}
+            />
+          )}
 
-        {activeTab === 'radar' && (
-          <AnomalyRadarScanner
-            records={records}
-            onSelectRecord={(r) => setSelectedRecord(r)}
-          />
-        )}
+          {activeTab === 'oscilloscope' && <LiveTelemetryStream />}
 
-        {activeTab === 'correlation' && (
-          <SensorCorrelationMatrix records={records} />
-        )}
+          {activeTab === 'radar' && (
+            <AnomalyRadarScanner
+              records={records}
+              onSelectRecord={(r) => setSelectedRecord(r)}
+            />
+          )}
 
-        {activeTab === 'explainability' && (
-          <ModelExplainabilityTab
-            records={records}
-            onSelectRecord={(r) => setSelectedRecord(r)}
-          />
-        )}
+          {activeTab === 'correlation' && (
+            <SensorCorrelationMatrix records={records} />
+          )}
 
-        {activeTab === 'maintenance' && (
-          <PredictiveMaintenanceTab
-            records={records}
-            onSelectRecord={(r) => setSelectedRecord(r)}
-          />
-        )}
+          {activeTab === 'explainability' && (
+            <ModelExplainabilityTab
+              records={records}
+              onSelectRecord={(r) => setSelectedRecord(r)}
+            />
+          )}
 
-        {activeTab === 'models' && <ModelStudioTab />}
+          {activeTab === 'maintenance' && (
+            <PredictiveMaintenanceTab
+              records={records}
+              onSelectRecord={(r) => setSelectedRecord(r)}
+            />
+          )}
 
-        {activeTab === 'diagnostics' && (
-          <DiagnosticsTab
-            records={records}
-            onSelectRecord={(r) => setSelectedRecord(r)}
-            onConsultAi={(r) => {
-              setAiTargetRecord(r);
-              setIsAiCopilotOpen(true);
-            }}
-          />
-        )}
+          {activeTab === 'models' && <ModelStudioTab />}
 
-        {activeTab === 'digital-twin' && <DigitalTwinTab />}
-      </main>
+          {activeTab === 'diagnostics' && (
+            <DiagnosticsTab
+              records={records}
+              onSelectRecord={(r) => setSelectedRecord(r)}
+              onConsultAi={(r) => {
+                setAiTargetRecord(r);
+                setIsAiCopilotOpen(true);
+              }}
+            />
+          )}
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-slate-950/80 py-6 font-mono text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Zap className="w-4 h-4 text-cyan-400" />
-            <span>Sensor ML Quality Benchmark & 3D Digital Twin Workbench</span>
+          {activeTab === 'digital-twin' && <DigitalTwinTab />}
+        </main>
+
+        {/* Footer */}
+        <footer className="border-t border-slate-800/80 bg-slate-950/80 py-5 font-mono text-xs text-slate-500">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <Zap className="w-4 h-4 text-cyan-400" />
+              <span>PowerMext AI • Sensor ML Quality Benchmark & 3D Digital Twin Workbench</span>
+            </div>
+
+            <div className="flex items-center gap-4 text-[11px]">
+              <span>Team Dataforge</span>
+              <span>•</span>
+              <span className="text-emerald-400 font-bold">IEC 61508 (SIL-2)</span>
+              <span>•</span>
+              <span>5-Fold CV AutoML Verified</span>
+            </div>
           </div>
-
-          <div className="flex items-center gap-4 text-[11px]">
-            <span>ISO/IEC 25010</span>
-            <span>•</span>
-            <span className="text-emerald-400 font-bold">IEC 61508 (SIL-2)</span>
-            <span>•</span>
-            <span>5-Fold CV AutoML Verified</span>
-          </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
 
       {/* Modals & Drawers */}
       <WhatIfSimulatorModal
