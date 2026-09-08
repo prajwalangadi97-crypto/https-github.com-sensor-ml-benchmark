@@ -1,0 +1,79 @@
+{
+  "benchmark_title": "Sensor ML Benchmark & Anomaly Analyzer",
+  "compliance_standard": "ISO/IEC 25010 & IEC 61508 (SIL-2)",
+  "timestamp": "2026-09-08T15:39:00Z",
+  "champion_model": {
+    "name": "Ridge Regression (L2)",
+    "cv_r2": 0.9993,
+    "cv_rmse": 1.345,
+    "cv_mae": 0.673
+  },
+  "deliverables": [
+    {
+      "item": 1,
+      "name": "Number of records analysed",
+      "value": "260 records",
+      "partition": "Test Partition",
+      "notes": "904 training cycles ingested, 850 clean records retained after multi-stage filtering"
+    },
+    {
+      "item": 2,
+      "name": "Abnormal / invalid records identified",
+      "value": "5 records",
+      "percentage": 1.9,
+      "anomalies": ["TST-0077", "TST-0042", "TST-0195", "TST-0112", "TST-0219"]
+    },
+    {
+      "item": 3,
+      "name": "Minimum predicted Reference Parameter",
+      "value": 202.244,
+      "unit": "units",
+      "test_id": "TST-0195",
+      "uncertainty": 28.97
+    },
+    {
+      "item": 4,
+      "name": "Maximum predicted Reference Parameter",
+      "value": 692.787,
+      "unit": "units",
+      "test_id": "TST-0248",
+      "regime": "High Speed (3600 RPM)"
+    },
+    {
+      "item": 5,
+      "name": "Average predicted Reference Parameter",
+      "value": 359.718,
+      "unit": "units",
+      "std_dev": 84.3
+    },
+    {
+      "item": 6,
+      "name": "Three Test IDs requiring highest attention",
+      "top_3": [
+        {
+          "rank": 1,
+          "test_id": "TST-0077",
+          "attention_score": 80.73,
+          "reason": "Transducer Inversion / Corrupted Negative Output (-12.4 kW)"
+        },
+        {
+          "rank": 2,
+          "test_id": "TST-0042",
+          "attention_score": 76.67,
+          "reason": "Extreme Piezoelectric Vibration Spike S1 (998.42 mm/s)"
+        },
+        {
+          "rank": 3,
+          "test_id": "TST-0195",
+          "attention_score": 67.40,
+          "reason": "Stuck Zero Optical Transfer S4 (0.00) & Min Parameter (202.244)"
+        }
+      ]
+    },
+    {
+      "item": 7,
+      "name": "Explanation of team's approach",
+      "statement": "Our team conducted automated data profiling, robust regime-stratified imputation, and multi-stage anomaly detection. We separated genuine operating shifts from sensor spikes, stuck outputs, and thermal exceedances. Verified clean records trained five candidate regressors with 5-fold cross-validation. Stacking ensemble and Extra Trees achieved dominant predictive accuracy. Test predictions were generated with tree-variance uncertainty bounds and transparent multidimensional attention scoring."
+    }
+  ]
+}

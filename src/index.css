@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root,
+  .theme-industrial-dark {
+    --color-bg: #090d16;
+    --color-card: #0f172a;
+    --color-border: #1e293b;
+    --color-accent: #06b6d4; /* Cyan */
+    --color-secondary: #10b981; /* Emerald */
+    --color-text: #f8fafc;
+    --color-muted: #94a3b8;
+    --color-panel: rgba(15, 23, 42, 0.75);
+    --color-glow: rgba(6, 182, 212, 0.25);
+  }
+
+  .theme-precision-slate {
+    --color-bg: #0f141c;
+    --color-card: #182232;
+    --color-border: #28364d;
+    --color-accent: #38bdf8;
+    --color-secondary: #818cf8;
+    --color-text: #f1f5f9;
+    --color-muted: #94a3b8;
+    --color-panel: rgba(24, 34, 50, 0.85);
+    --color-glow: rgba(56, 189, 248, 0.25);
+  }
+
+  .theme-cybernetic-emerald {
+    --color-bg: #03140e;
+    --color-card: #07261c;
+    --color-border: #0f4030;
+    --color-accent: #10b981;
+    --color-secondary: #06b6d4;
+    --color-text: #ecfdf5;
+    --color-muted: #6ee7b7;
+    --color-panel: rgba(7, 38, 28, 0.85);
+    --color-glow: rgba(16, 185, 129, 0.3);
+  }
+
+  .theme-clean-light {
+    --color-bg: #f8fafc;
+    --color-card: #ffffff;
+    --color-border: #e2e8f0;
+    --color-accent: #0284c7;
+    --color-secondary: #059669;
+    --color-text: #0f172a;
+    --color-muted: #64748b;
+    --color-panel: rgba(255, 255, 255, 0.9);
+    --color-glow: rgba(2, 132, 199, 0.15);
+  }
+
+  .theme-obsidian-gold {
+    --color-bg: #120e0a;
+    --color-card: #1f1912;
+    --color-border: #382c1e;
+    --color-accent: #f59e0b;
+    --color-secondary: #fbbf24;
+    --color-text: #fffbeb;
+    --color-muted: #d97706;
+    --color-panel: rgba(31, 25, 18, 0.85);
+    --color-glow: rgba(245, 158, 11, 0.25);
+  }
+
+  .theme-aurora-blue {
+    --color-bg: #0b0f19;
+    --color-card: #131b2e;
+    --color-border: #233254;
+    --color-accent: #6366f1;
+    --color-secondary: #3b82f6;
+    --color-text: #f0f3ff;
+    --color-muted: #93c5fd;
+    --color-panel: rgba(19, 27, 46, 0.85);
+    --color-glow: rgba(99, 102, 241, 0.25);
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Custom Phosphor CRT Scanline overlay */
+.crt-overlay {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+}
+
+/* Glassmorphism Panel */
+.glass-panel {
+  background: var(--color-panel);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel-glow {
+  background: var(--color-panel);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 0 20px 0 var(--color-glow);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Radar Sweep Animation */
+@keyframes radarSweepContinuous {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-radar-sweep {
+  animation: radarSweepContinuous 4s linear infinite;
+  transform-origin: center center;
+}
+
+/* Pulse animation for target lock */
+@keyframes pulseTarget {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-target-pulse {
+  animation: pulseTarget 1.5s infinite ease-in-out;
+}
