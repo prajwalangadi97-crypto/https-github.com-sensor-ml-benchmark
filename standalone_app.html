@@ -50,73 +50,108 @@
     .text-muted { color: var(--text-muted); }
 
     /* Layout Containers */
-    .header-bar {
+    .app-layout {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+    .app-sidebar {
+      width: 270px;
+      min-width: 270px;
+      background: rgba(2, 6, 23, 0.95);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
       position: sticky;
       top: 0;
+      height: 100vh;
       z-index: 40;
-      background: rgba(2, 6, 23, 0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-color);
-      padding: 0.75rem 1.5rem;
     }
-    .header-inner {
-      max-width: 1380px;
-      margin: 0 auto;
+    .sidebar-header {
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .sidebar-status {
+      padding: 0.6rem 1rem;
+      background: rgba(15, 23, 42, 0.6);
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
     }
-    .logo-box {
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.75rem;
       display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .logo-icon {
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 0.75rem;
-      background: linear-gradient(135deg, #0891b2, #059669);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
-    }
-    .main-nav {
-      max-width: 1380px;
-      margin: 0.75rem auto 0;
-      display: flex;
-      gap: 0.5rem;
-      overflow-x: auto;
-      padding-bottom: 0.25rem;
+      flex-direction: column;
+      gap: 0.25rem;
     }
     .nav-btn {
-      padding: 0.5rem 1rem;
-      border-radius: 0.75rem;
-      font-size: 0.8rem;
+      padding: 0.55rem 0.85rem;
+      border-radius: 0.6rem;
+      font-size: 0.75rem;
       font-family: var(--font-mono);
       font-weight: 600;
       background: transparent;
       border: 1px solid transparent;
+      border-left: 3px solid transparent;
       color: var(--text-muted);
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 0.5rem;
       transition: all 0.2s ease;
-      white-space: nowrap;
+      text-align: left;
+      width: 100%;
     }
     .nav-btn:hover {
-      background: rgba(30, 41, 59, 0.5);
+      background: rgba(30, 41, 59, 0.6);
       color: #fff;
     }
     .nav-btn.active {
       background: rgba(6, 182, 212, 0.15);
-      border-color: rgba(6, 182, 212, 0.5);
+      border-color: rgba(6, 182, 212, 0.35);
+      border-left-color: var(--accent-cyan);
       color: var(--accent-cyan);
-      box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.15);
+    }
+    .sidebar-tools {
+      padding: 0.75rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .sidebar-footer {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      color: #64748b;
+      display: flex;
+      justify-content: space-between;
+    }
+    .app-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow-y: auto;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.85rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     /* Action Buttons in Header */
@@ -312,62 +347,91 @@
 </head>
 <body>
 
-  <!-- Top Header Navigation -->
-  <header class="header-bar">
-    <div class="header-inner">
-      <div class="logo-box">
-        <div class="logo-icon">⚡</div>
-        <div>
-          <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <h1 style="font-size: 1.05rem; font-weight: 800; font-family: var(--font-mono); letter-spacing: -0.02em;">SENSOR ML BENCHMARK</h1>
-            <span style="font-size: 0.65rem; font-family: var(--font-mono); background: rgba(6, 182, 212, 0.15); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.35); padding: 0.15rem 0.4rem; border-radius: 0.35rem; font-weight: 700;">ISO/SIL-2 READY</span>
+  <!-- Full App Two-Column Layout -->
+  <div class="app-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <div class="logo-box">
+          <div class="logo-icon">⚡</div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <h1 style="font-size: 0.95rem; font-weight: 800; font-family: var(--font-mono); letter-spacing: -0.02em;">POWERMEXT AI</h1>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.4rem; margin-top: 0.2rem;">
+              <span style="font-size: 0.6rem; font-family: var(--font-mono); background: rgba(6, 182, 212, 0.15); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.35); padding: 0.1rem 0.35rem; border-radius: 0.25rem; font-weight: 700;">ISO/SIL-2 READY</span>
+              <span style="font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono);">BENCHMARK</span>
+            </div>
           </div>
-          <p style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">Automated Multi-Sensor Anomaly Audit & 3D Digital Twin (Standalone)</p>
         </div>
       </div>
 
-      <!-- Action Toolbar -->
-      <div class="action-group">
-        <div style="display: flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.7rem; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); padding: 0.35rem 0.7rem; border-radius: 0.5rem;">
-          <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block; box-shadow: 0 0 8px #10b981;"></span>
-          <span>STANDALONE BUNDLE (260 RECS)</span>
+      <div class="sidebar-status">
+        <div style="display: flex; align-items: center; gap: 0.4rem;">
+          <span style="width: 7px; height: 7px; border-radius: 50%; background: #10b981; display: inline-block; box-shadow: 0 0 6px #10b981;"></span>
+          <span style="color: #e2e8f0; font-weight: 600;">STANDALONE (260)</span>
         </div>
+        <span style="color: #64748b;">SIL-2 PASS</span>
+      </div>
 
-        <button class="btn-action" style="background: rgba(6, 182, 212, 0.15); border-color: rgba(6, 182, 212, 0.4); color: #38bdf8;" onclick="openModal('audio-modal')">
-          <span>🔊</span> <span>SONIFIER</span>
-        </button>
+      <nav class="sidebar-nav">
+        <div style="font-size: 0.65rem; color: #64748b; font-family: var(--font-mono); text-transform: uppercase; font-weight: 700; margin-bottom: 0.25rem; padding-left: 0.25rem;">Analytics Modules</div>
+        <button class="nav-btn active" onclick="switchTab('executive')">📊 Executive Dashboard</button>
+        <button class="nav-btn" onclick="switchTab('oscilloscope')">📻 CRT Oscilloscope</button>
+        <button class="nav-btn" onclick="switchTab('radar')">📡 360° Radar Scanner</button>
+        <button class="nav-btn" onclick="switchTab('correlation')">🧬 Correlation Matrix</button>
+        <button class="nav-btn" onclick="switchTab('explainability')">🔍 SHAP Studio (XAI)</button>
+        <button class="nav-btn" onclick="switchTab('maintenance')">⏳ Predictive RUL</button>
+        <button class="nav-btn" onclick="switchTab('models')">🏆 ML Benchmark Studio</button>
+        <button class="nav-btn" onclick="switchTab('diagnostics')">🚨 Top 3 Diagnostician</button>
+        <button class="nav-btn" onclick="switchTab('digital-twin')">⚙️ 3D Digital Twin</button>
+      </nav>
 
-        <button class="btn-action btn-ai" onclick="openDrawer('ai-drawer')">
+      <div class="sidebar-tools">
+        <div style="font-size: 0.65rem; color: #64748b; font-family: var(--font-mono); text-transform: uppercase; font-weight: 700; margin-bottom: 0.25rem; padding-left: 0.25rem;">Diagnostic Tools</div>
+        <button class="btn-action btn-ai" style="width: 100%; justify-content: center;" onclick="openDrawer('ai-drawer')">
           <span>✨</span> <span>AI COPILOT</span>
         </button>
-
-        <button class="btn-action btn-whatif" onclick="openModal('whatif-modal')">
+        <button class="btn-action" style="background: rgba(6, 182, 212, 0.12); border: 1px solid rgba(6, 182, 212, 0.35); color: #38bdf8; width: 100%;" onclick="openModal('audio-modal')">
+          <span>🔊</span> <span>SONIFIER</span>
+        </button>
+        <button class="btn-action btn-whatif" style="width: 100%;" onclick="openModal('whatif-modal')">
           <span>🎛️</span> <span>WHAT-IF</span>
         </button>
-
-        <button class="btn-action btn-dossier" onclick="openModal('dossier-modal')">
+        <button class="btn-action btn-dossier" style="width: 100%;" onclick="openModal('dossier-modal')">
           <span>📋</span> <span>AUDIT DOSSIER</span>
         </button>
-
-        <button class="btn-action btn-export" onclick="openModal('export-modal')">
+        <button class="btn-action btn-export" style="width: 100%;" onclick="openModal('export-modal')">
           <span>📥</span> <span>EXPORT</span>
         </button>
       </div>
-    </div>
 
-    <!-- Navigation Tabs -->
-    <nav class="main-nav">
-      <button class="nav-btn active" onclick="switchTab('executive')">📊 Executive Dashboard</button>
-      <button class="nav-btn" onclick="switchTab('oscilloscope')">📻 CRT Oscilloscope</button>
-      <button class="nav-btn" onclick="switchTab('radar')">📡 360° Radar Scanner</button>
-      <button class="nav-btn" onclick="switchTab('correlation')">🧬 Correlation Matrix</button>
-      <button class="nav-btn" onclick="switchTab('explainability')">🔍 SHAP Studio (XAI)</button>
-      <button class="nav-btn" onclick="switchTab('maintenance')">⏳ Predictive RUL</button>
-      <button class="nav-btn" onclick="switchTab('models')">🏆 ML Benchmark Studio</button>
-      <button class="nav-btn" onclick="switchTab('diagnostics')">🚨 Top 3 Diagnostician (5 Anomalies)</button>
-      <button class="nav-btn" onclick="switchTab('digital-twin')">⚙️ 3D Digital Twin</button>
-    </nav>
-  </header>
+      <div class="sidebar-footer">
+        <span>TEAM DATAFORGE</span>
+        <span style="color: #34d399; font-weight: 700;">IEC 61508 SIL-2</span>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <div class="app-main">
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono);">
+          <span style="color: #64748b; font-size: 0.8rem;">PowerMext AI /</span>
+          <h2 id="topbar-title" style="font-size: 0.95rem; font-weight: 800; color: #fff;">Executive Summary & Quality Dashboard</h2>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <button class="btn-action btn-ai" onclick="openDrawer('ai-drawer')">
+            <span>✨</span> <span>AI Copilot</span>
+          </button>
+          <button class="btn-action btn-whatif" onclick="openModal('whatif-modal')">
+            <span>🎛️</span> <span>What-If</span>
+          </button>
+          <button class="btn-action btn-export" onclick="openModal('export-modal')">
+            <span>📥</span> <span>Export</span>
+          </button>
+        </div>
+      </header>
 
   <!-- Main Container -->
   <main class="main-content">
@@ -1060,6 +1124,18 @@
 
   </main>
 
+        <footer style="border-top: 1px solid var(--border-color); padding: 1.25rem 1.75rem; font-family: var(--font-mono); font-size: 0.75rem; color: #64748b; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-top: auto;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: #06b6d4;">⚡</span>
+            <span>PowerMext AI • Sensor ML Quality Benchmark & 3D Digital Twin Workbench</span>
+          </div>
+          <div>
+            <span>Team Dataforge • <strong style="color: #34d399;">IEC 61508 SIL-2</strong> • 5-Fold CV AutoML Verified</span>
+          </div>
+        </footer>
+      </div>
+    </div>
+
   <!-- MODALS -->
 
   <!-- WHAT-IF SIMULATOR MODAL -->
@@ -1382,12 +1458,26 @@
 
     // Tab Switching
     const allNavTabs = ['executive', 'oscilloscope', 'radar', 'correlation', 'explainability', 'maintenance', 'models', 'diagnostics', 'digital-twin'];
+    const tabTitles = {
+      executive: 'Executive Summary & Quality Dashboard',
+      oscilloscope: 'Multi-Channel CRT Oscilloscope (60 FPS Phosphor)',
+      radar: '360° Polar Sonar Anomaly Radar Scanner',
+      correlation: 'Multi-Sensor Correlation Heatmap & Kinematic Decoupling',
+      explainability: 'Model Explainability & SHAP Studio (TreeSHAP)',
+      maintenance: 'Predictive Maintenance & RUL Estimator (Weibull)',
+      models: 'Automated ML Benchmark Studio (5-Fold Arena)',
+      diagnostics: 'Top 3 Critical Attention Diagnostician (5 Anomalies)',
+      'digital-twin': 'Interactive 3D Spatial Digital Twin Rig'
+    };
     function switchTab(tabId) {
       activeTab = tabId;
       allNavTabs.forEach(t => {
         const el = document.getElementById('tab-' + t);
         if (el) el.style.display = (t === tabId) ? 'block' : 'none';
       });
+
+      const titleEl = document.getElementById('topbar-title');
+      if (titleEl && tabTitles[tabId]) titleEl.innerText = tabTitles[tabId];
 
       document.querySelectorAll('.nav-btn').forEach((btn, idx) => {
         if (allNavTabs[idx] === tabId) btn.classList.add('active');
